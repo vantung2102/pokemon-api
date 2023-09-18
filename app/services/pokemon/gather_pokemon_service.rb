@@ -1,5 +1,7 @@
 module Pokemon
   class GatherPokemonService < ApplicationService
+    attr_reader :collection, :filters, :orders
+
     def initialize(collection, filters, orders)
       @collection = collection
       @filters = filters
@@ -12,6 +14,5 @@ module Pokemon
 
     private
 
-    attr_accessor :collection, :filters, :orders
   end
 end
