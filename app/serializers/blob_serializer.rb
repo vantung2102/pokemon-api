@@ -6,8 +6,7 @@ class BlobSerializer < Blueprinter::Base
   end
 
   view :detail do
-    fields :content_type,
-           :byte_size
+    fields :content_type, :byte_size
 
     field :filename do |object|
       object.filename&.to_s

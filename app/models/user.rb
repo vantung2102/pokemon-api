@@ -8,9 +8,12 @@
 #  email_verification_token   :string
 #  email_verified_at          :datetime
 #  name                       :string
+#  omniauth_expires_at        :datetime
 #  password_digest            :string           default(""), not null
+#  provider                   :string
 #  reset_password_sent_at     :datetime
 #  reset_password_token       :string
+#  uid                        :string
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #
@@ -59,6 +62,16 @@ class User < ApplicationRecord
     self.reset_password_token = nil
     self.password = new_password
     save!
+  end
+
+  def self.from_omniauth(auth)
+    user = User.find_by(email: auth.info.email)
+    return user if user
+
+    where(provider: auth.provider, uid: auth.info).first_or_create! do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+    end
   end
 
   private

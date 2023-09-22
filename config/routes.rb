@@ -9,6 +9,11 @@ Rails.application.routes.draw do
                 param: :signed_id,
                 only: %i[create show]
 
+      namespace :auth do
+        get :failure, to:'omniauth#failure'
+        post :callbacks, to:'omniauth#create'
+      end
+
       namespace :users do
         post :signup, to: 'registrations#create'
         post :verify, to: 'registrations#verify'

@@ -21,6 +21,17 @@ gem 'image_processing', '>= 1.2'
 gem 'rswag'
 gem 'httparty'
 
+gem "omniauth"
+gem 'omniauth-rails_csrf_protection'
+
+gem 'omniauth-github'
+gem 'omniauth-twitter'
+gem 'omniauth-linkedin'
+gem "omniauth-facebook"
+gem 'omniauth-instagram'
+gem "omniauth-google-oauth2"
+gem 'omniauth-azure-activedirectory-v2'
+
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'pry-rails'

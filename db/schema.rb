@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_16_092625) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_22_031136) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -129,6 +129,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_16_092625) do
     t.datetime "reset_password_sent_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "uid"
+    t.string "provider"
+    t.datetime "omniauth_expires_at"
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|
