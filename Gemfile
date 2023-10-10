@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.2.2'
 
-gem 'rails', '~> 7.0.8'
+gem 'rails', '~> 7.1.0'
 gem 'pg', '~> 1.2'
 gem 'puma', '~> 5.0'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
@@ -18,7 +18,6 @@ gem 'pagy'
 gem 'jwt'
 gem 'enumerize'
 gem 'image_processing', '>= 1.2'
-gem 'rswag'
 gem 'httparty'
 
 gem "omniauth"

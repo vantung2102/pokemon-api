@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  mount Rswag::Ui::Engine => '/api-docs'
-  mount Rswag::Api::Engine => '/api-docs'
   root 'supports#home'
 
   namespace :api do
@@ -30,6 +28,10 @@ Rails.application.routes.draw do
 
         post :forgot_password, to: 'passwords#forgot_password'
         post :reset_password, to: 'passwords#reset_password'
+      end
+
+      namespace :pokedex do
+        resources :pokemons, only: %i[index show update destroy]
       end
     end
   end

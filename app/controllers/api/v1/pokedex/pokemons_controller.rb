@@ -1,14 +1,18 @@
 module API
   module V1
-    module Pokemon
+    module Pokedex
       class PokemonsController < BaseController
-        include API::Resourceable
+        include Resourceable
+
+        resource_with class: Pokemon
 
         before_action :prepare_collection
         before_action :prepare_object
 
-        def index
 
+        def index
+          pagy, collection = paginate(filtered_collection)
+          render_resource_collection(collection, pagy:)
         end
 
         def show; end

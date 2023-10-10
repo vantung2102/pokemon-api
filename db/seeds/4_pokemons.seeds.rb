@@ -13,6 +13,16 @@ ActiveRecord::Base.transaction do
     regions = species['pokedex_numbers'].map{ |x| x['pokedex']['name'] }
     form = HTTParty.get("https://pokeapi.co/api/v2/pokemon-form/#{poke['id']}")
 
+    # Images
+    # image = HTTParty.get("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-iii/emerald/132.png")
+    # file_path = Tempfile.new(["image", '.png'], Rails.root.join('tmp', 'pokemon'))
+    # File.open(file_path.path, 'wb') { |file| file.write(image) }
+
+    # abc = File.open(file_path.path, 'rb') do |file|
+    #   binding.pry
+    # end
+
+
     pokemon = Pokemon.create!(
       gender: 0,
       pokemon_api_id: poke['id'],
@@ -28,6 +38,8 @@ ActiveRecord::Base.transaction do
       category: species['genera'].find{ |genera| genera['language']['name'] == 'en'}['genus']
     )
 
+    # pokemon.image.attach(io: File.open(file_path.path), filename: "#{poke['name']}.png")
+
     poke['types'].each do |type|
       pokemon.pokemon_types.create!(
         type_id: Type.find_by(name: type['type']['name']).id
@@ -39,6 +51,8 @@ ActiveRecord::Base.transaction do
         ability_id: Ability.find_by(name: ability['ability']['name']).id
       )
     end
+
+
   end
 
   puts '~> Done create pokemons'
