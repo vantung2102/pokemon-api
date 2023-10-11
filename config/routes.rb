@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
       namespace :auth do
         get :failure, to:'omniauth#failure'
-        post :callbacks, to:'omniauth#create'
+        get ':provider/callback', to:'omniauth#create'
       end
 
       namespace :users do

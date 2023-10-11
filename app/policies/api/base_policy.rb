@@ -1,4 +1,4 @@
-class Api::BasePolicy < ApplicationPolicy
+class API::BasePolicy < ApplicationPolicy
   def index?
     is_admin?
   end
