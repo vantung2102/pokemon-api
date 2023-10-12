@@ -55,7 +55,6 @@ module Resourceable
   end
 
   def index
-    binding.pry
     pagy, collection = paginate(instance_variable_get(self.class.resource_collection_variable))
     instance_variable_set(self.class.resource_pagy_variable, pagy)
     instance_variable_set(self.class.resource_collection_variable, collection)
@@ -109,7 +108,6 @@ module Resourceable
   end
 
   def prepare_collection
-    binding.pry
     collection = resource_base_scope.includes(self.class.resource_collection_includes)
     instance_variable_set(self.class.resource_collection_variable, collection)
     authorize(collection)

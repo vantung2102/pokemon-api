@@ -1,4 +1,4 @@
-module Pokemon
+module Pokedex
   class GatherPokemonService < ApplicationService
     attr_reader :collection, :filters, :orders
 
@@ -9,10 +9,8 @@ module Pokemon
     end
 
     def call
-      Pokemon::GatherPokemonQuery.call()
+      binding.pry
+      Pokedex::GatherPokemonQuery.call(collection, filters, orders)
     end
-
-    private
-
   end
 end

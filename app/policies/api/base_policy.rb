@@ -1,5 +1,6 @@
 class API::BasePolicy < ApplicationPolicy
   def index?
+    binding.pry
     is_admin?
   end
 
@@ -22,6 +23,7 @@ class API::BasePolicy < ApplicationPolicy
   private
 
   def is_admin?
+    binding.pry
     true
   end
 end

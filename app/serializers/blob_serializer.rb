@@ -2,7 +2,7 @@ class BlobSerializer < Blueprinter::Base
   identifier :signed_id
 
   field :url do |object|
-    Rails.application.routes.url_helpers.url_for(object)
+    url_for(object)
   end
 
   view :detail do

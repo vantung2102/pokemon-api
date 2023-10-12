@@ -48,7 +48,7 @@ module JSONAPIRender
     [sopts, ropts]
   end
 
-  def accepted_jsonapi_serializer_options
-    %i[meta links include params]
+  def render_options_keys
+    %i[serializer each_serializer pagy status]
   end
 end

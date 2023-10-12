@@ -7,7 +7,7 @@ ActiveRecord::Base.transaction do
   puts '~> Create pokemons'
 
   pokemons = HTTParty.get('https://pokeapi.co/api/v2/pokemon?limit=100000')
-  pokemons['results'].each do |pokemon|
+  pokemons['results'].take(20).each do |pokemon|
     poke = HTTParty.get(pokemon['url'])
     species = HTTParty.get(poke['species']['url'])
     regions = species['pokedex_numbers'].map{ |x| x['pokedex']['name'] }
