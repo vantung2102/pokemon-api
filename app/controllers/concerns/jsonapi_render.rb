@@ -23,7 +23,7 @@ module JSONAPIRender
 
   def render_resource_errors(errors, options = {})
     api_error = APIError::RecordInvalidError.new(errors)
-    render json: APIErrorSerializer.new(error), status: options[:status] || api_error.status
+    render json: api_error, status: options[:status] || api_error.status
   end
 
   private

@@ -1,24 +1,30 @@
-module ApiError
+module APIError
   class RecordInvalidError < StandardError
-    def initialize(errors = [])
-      @errors = errors
-      @status = '422'
-      @title = 'Unprocessable Entity'
+    def initialize(errors: [])
+      super(
+        status = 422
+        errors = errors
+        title = 'Unprocessable Entity'
+      )
     end
 
     def serializer_hash
-      errors.each_with_object([]) do |error, meno|
-        meno << {
-          title: title,
-          status: status,
-          deatil: error.full_message,
-          source: { pointer: "data/attributes/#{error.attribute}" }
-        }
-      end
+      {
+        title: title,
+        status: status,
+        errors: serializable_errors(errors)
+      }
     end
 
     private
 
-    attr_reader :errors
+    def serializable_errors(errors)
+      errors.each_with_object([]) do |error, memo|
+        memo << {
+          field: error.attribute
+          message: error.full_message,
+        }
+      end
+    end
   end
 end

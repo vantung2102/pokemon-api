@@ -1,8 +1,14 @@
 module Pagination
   extend ActiveSupport::Concern
 
-  PAGY_KEYS_TRANSFORMER = { items: :page_size, page: :page_number, count: :total_count,
-                            prev: :prev_page, next: :next_page, last: :last_page }.freeze
+  PAGY_KEYS_TRANSFORMER = {
+    items: :page_size,
+    page: :page_number,
+    count: :total_count,
+    prev: :prev_page,
+    next: :next_page,
+    last: :last_page
+  }.freeze
 
   def paginate(collection)
     pagy(collection, page: page_number, items: page_size)

@@ -1,10 +1,10 @@
-module ApiError
+module APIError
   class BadRequestError < StandardError
-    def initialize(message = nil)
+    def initialize(message: nil)
       super(
-        status: '400',
+        status: 400,
         title: 'Bad Request',
-        detail: message || 'The request can not be processed'
+        message: message || 'The request can not be processed'
       )
     end
   end

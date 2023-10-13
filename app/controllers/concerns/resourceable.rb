@@ -58,11 +58,10 @@ module Resourceable
     pagy, collection = paginate(instance_variable_get(self.class.resource_collection_variable))
     instance_variable_set(self.class.resource_pagy_variable, pagy)
     instance_variable_set(self.class.resource_collection_variable, collection)
-
-    render_resources(collection, each_serializer: self.class.resource_collection_serializer,
-                                 include: self.class.resource_collection_includes,
-                                 pagy: pagy,
-                                 status: :ok)
+    render_resource_collection(collection, each_serializer: self.class.resource_collection_serializer,
+                                          include: self.class.resource_collection_includes,
+                                          pagy: pagy,
+                                          status: :ok)
   end
 
   def show

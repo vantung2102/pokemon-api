@@ -1,10 +1,10 @@
-module ApiError
+module APIError
   class NotFoundError < StandardError
     def initialize(message: nil)
       super(
-        status: '404',
+        status: 404,
         title: 'Not Found',
-        deatil: message || 'The finding resource can not be found'
+        message: message || 'The finding resource can not be found'
       )
     end
   end

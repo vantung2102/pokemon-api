@@ -19,6 +19,14 @@ gem 'jwt'
 gem 'enumerize'
 gem 'image_processing', '>= 1.2'
 gem 'httparty'
+gem 'slim'
+gem 'devise'
+gem 'devise-jwt'
+gem 'sidekiq'
+gem 'sidekiq-cron'
+gem 'sentry-ruby'
+gem 'sentry-rails'
+gem 'rswag'
 
 gem "omniauth"
 gem 'omniauth-rails_csrf_protection'
@@ -35,7 +43,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'pry-rails'
   gem 'dotenv-rails'
-  gem 'rspec-rails', '~> 5.1', '>= 5.1.2'
+  gem 'rspec-rails', '~> 6.0', '>= 6.0.3'
   gem 'rspec_junit_formatter'
   gem 'factory_bot_rails'
   gem 'faker'
@@ -52,4 +60,5 @@ end
 group :test do
   gem 'simplecov', require: false
   gem 'shoulda-matchers'
+  gem 'pundit-matchers'
 end

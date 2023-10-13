@@ -43,7 +43,7 @@ class ApplicationPolicy
     end
 
     def resolve
-      @user.nil? ? @scope.none : @scope.all
+      @scope.all
     end
   end
 end

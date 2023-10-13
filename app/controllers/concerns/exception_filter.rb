@@ -26,6 +26,6 @@ module ExceptionFilter
   end
 
   def render_api_error(error)
-    render json: APIErrorSerializer.new(error), status: error.status
+    render json: error, status: error.status
   end
 end

@@ -4,17 +4,17 @@ module API
       class PokemonsController < BaseController
         include Resourceable
 
-        # resource_with class: Pokemon,
-        #               collection_variable: :@pokemons,
-        #               object_variable: :@pokemon
+        resource_with class: Pokemon,
+                      collection_variable: :@pokemons,
+                      object_variable: :@pokemon
 
         skip_before_action :authenticate_user!, only: %i[index show]
-        # before_action :prepare_collection, only: %i[index]
+        before_action :prepare_collection, only: %i[index]
         # before_action :prepare_object
 
 
         def index
-          pagy, collection = paginate(Pokemon.all)
+          pagy, collection = paginate(filtered_collection)
           render_resource_collection(collection, pagy: pagy, each_serializer: ::Pokedex::PokemonSerializer)
         end
 
