@@ -10,7 +10,8 @@ module API
 
         skip_before_action :authenticate_user!, only: %i[index show]
         before_action :prepare_collection, only: %i[index]
-        # before_action :prepare_object
+        before_action :prepare_new_object, only: %i[create]
+        before_action :prepare_object, only: %i[show update destroy]
 
 
         def index
@@ -19,6 +20,7 @@ module API
         end
 
         def show
+          render_resource(object, serializer: ::Pokedex::PokemonSerializer)
         end
 
         def create
