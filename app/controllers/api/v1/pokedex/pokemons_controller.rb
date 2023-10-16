@@ -4,15 +4,19 @@ module API
       class PokemonsController < BaseController
         include Resourceable
 
-        resource_with class: Pokemon,
-                      collection_variable: :@pokemons,
-                      object_variable: :@pokemon
+        OBJECT_INCLUDES = %i[
+          region
+        ].freeze
 
-        skip_before_action :authenticate_user!, only: %i[index show]
+        skip_before_action :authenticate_user!
         before_action :prepare_collection, only: %i[index]
         before_action :prepare_new_object, only: %i[create]
         before_action :prepare_object, only: %i[show update destroy]
 
+        resource_with class: Pokemon,
+                      collection_variable: :@pokemons,
+                      collection_includes: OBJECT_INCLUDES,
+                      object_variable: :@pokemon
 
         def index
           pagy, collection = paginate(filtered_collection)
@@ -20,22 +24,23 @@ module API
         end
 
         def show
-          render_resource(object, serializer: ::Pokedex::PokemonSerializer)
+          render_resource(@pokemon, serializer: ::Pokedex::PokemonSerializer)
         end
 
         def create
+          pokemon = ::Pokedex::UpsertPokemonService.call(@pokemon, resource_permitted_params)
+          render_resource(pokemon, serializer: ::Pokedex::PokemonSerializer, status: :created)
         end
 
-        def update; end
-
-        def destroy
-
+        def update
+          pokemon = ::Pokedex::UpsertPokemonService.call(@pokemon, resource_permitted_params)
+          render_resource(pokemon, serializer: ::Pokedex::PokemonSerializer, stasus: :ok)
         end
 
         private
 
         def resource_permitted_params
-          params.require(:pokemon).permit(API::Pokedex::PokemonPolicy.pokemon_permitted_attributes)
+          params.require(:pokemon).permit(::API::Pokedex::PokemonPolicy.permitted_attributes)
         end
 
         def filtered_collection

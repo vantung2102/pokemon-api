@@ -1,6 +1,6 @@
 module APIError
   class NotFoundError < StandardError
-    def initialize(message: nil)
+    def initialize(message = nil)
       super(
         status: 404,
         title: 'Not Found',

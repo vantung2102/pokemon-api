@@ -7,11 +7,6 @@ module API
 
       private
 
-      def authenticate_user!
-        scheme, token = request.headers['Authorization']&.split(' ')
-        @current_user = Auth::ValidateUserFromTokenService.call(scheme, token)
-      end
-
       def policy_scope(scope, policy_scope_class: nil, replace_parent_scope: false)
         super(replace_parent_scope ? scope : [:api, scope], policy_scope_class: policy_scope_class)
       end

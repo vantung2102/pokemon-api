@@ -50,12 +50,8 @@ Rails.application.routes.draw do
         end
       end
 
-      namespace :users do
-
-      end
-
       namespace :pokedex do
-        resources :pokemons, only: %i[index show update destroy]
+        resources :pokemons, only: %i[index show create update destroy]
       end
     end
   end

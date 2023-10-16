@@ -1,6 +1,6 @@
 module APIError
   class ParamMissingError < StandardError
-    def initialize(param: nil)
+    def initialize(param = nil)
       super(
         status: 400,
         title: 'Bad Request',

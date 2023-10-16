@@ -1,6 +1,6 @@
 module APIError
   class BadRequestError < StandardError
-    def initialize(message: nil)
+    def initialize(message = nil)
       super(
         status: 400,
         title: 'Bad Request',

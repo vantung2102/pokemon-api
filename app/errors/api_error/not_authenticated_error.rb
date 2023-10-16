@@ -1,6 +1,6 @@
 module APIError
   class NotAuthenticatedError < StandardError
-    def initialize(message: nil)
+    def initialize(message = nil)
       super(
         status: 401,
         title: 'Unauthorized',

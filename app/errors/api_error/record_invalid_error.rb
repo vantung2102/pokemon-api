@@ -1,10 +1,10 @@
 module APIError
   class RecordInvalidError < StandardError
-    def initialize(errors: [])
+    def initialize(errors = [])
       super(
-        status = 422
-        errors = errors
-        title = 'Unprocessable Entity'
+        status: 422,
+        errors: errors,
+        title: 'Unprocessable Entity'
       )
     end
 
@@ -21,8 +21,8 @@ module APIError
     def serializable_errors(errors)
       errors.each_with_object([]) do |error, memo|
         memo << {
-          field: error.attribute
-          message: error.full_message,
+          field: error.attribute,
+          message: error.full_message
         }
       end
     end
