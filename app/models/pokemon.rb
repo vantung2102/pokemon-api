@@ -31,6 +31,7 @@
 class Pokemon < ApplicationRecord
   enum gender: { female_and_male: 0, female: 1, male: 2, genderless: 3 }
 
+  # associations
   belongs_to :region
 
   has_one_attached :image
@@ -40,4 +41,11 @@ class Pokemon < ApplicationRecord
   has_many :types, through: :pokemon_types, dependent: :destroy
   has_many :abilities, through: :pokemon_abilities, dependent: :destroy
 
+  # validations
+  validates :name, presence: true, uniqueness: true
+  validates :pokemon_api_id, presence: true, uniqueness: true
+  validates :height, presence: true
+  validates :weight, presence: true
+  validates :category, presence: true
+  validates :stats, presence: true
 end

@@ -15,8 +15,8 @@ module API
 
         resource_with class: Pokemon,
                       collection_variable: :@pokemons,
-                      collection_includes: OBJECT_INCLUDES,
-                      object_variable: :@pokemon
+                      object_variable: :@pokemon,
+                      collection_includes: OBJECT_INCLUDES
 
         def index
           pagy, collection = paginate(filtered_collection)

@@ -51,7 +51,10 @@ Rails.application.routes.draw do
       end
 
       namespace :pokedex do
-        resources :pokemons, only: %i[index show create update destroy]
+        resources :types
+        resources :regions
+        resources :pokemons
+        resources :abilities
       end
     end
   end

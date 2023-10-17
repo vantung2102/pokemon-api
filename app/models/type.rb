@@ -15,6 +15,15 @@
 #  updated_at         :datetime         not null
 #
 class Type < ApplicationRecord
+  # associations
   has_many :pokemon_types, dependent: :destroy
   has_many :pokemons, through: :pokemon_types, dependent: :destroy
+  has_many :double_damage_from_type, class_name: 'Type', foreign_key: 'double_damage_from', dependent: :destroy
+  has_many :double_damage_to_type, class_name: 'Type', foreign_key: 'double_damage_to', dependent: :destroy
+  has_many :half_damage_from_type, class_name: 'Type', foreign_key: 'half_damage_from', dependent: :destroy
+  has_many :half_damage_to_type, class_name: 'Type', foreign_key: 'half_damage_to', dependent: :destroy
+  has_many :no_damage_from_type, class_name: 'Type', foreign_key: 'no_damage_from', dependent: :destroy
+  has_many :no_damage_to_type, class_name: 'Type', foreign_key: 'no_damage_to', dependent: :destroy
+
+  # validations
 end
