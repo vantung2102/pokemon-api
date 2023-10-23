@@ -4,6 +4,7 @@ info:
   title: API V1
   version: v1
 paths:
+  # ======= Auth =======
   "/api/v1/auth/confirmation":
     post:
       summary: Resend confirmation
@@ -346,6 +347,8 @@ paths:
       responses:
         "204":
           description: Success
+
+  # ======= Uploads =======
   "/api/v1/uploads":
     post:
       summary: Upload file
@@ -391,6 +394,678 @@ paths:
                   type: file
               required:
                 - file
+
+  # ======= Regions =======
+  "/api/v1/pokedex/regions":
+    get:
+      summary: Get regions
+      tags:
+        - Regions
+      security:
+        - bearer_auth: {}
+      parameters: []
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                    name:
+                      type: string
+                    country:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        name:
+                          type: string
+    post:
+      summary: Create region
+      tags:
+        - Regions
+      security:
+        - bearer_auth: {}
+      parameters: []
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  country:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+        "422":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unprocessable entity
+                  status:
+                    type: integer
+                    example: 422
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: name
+                        message:
+                          type: string
+                          example: Name can't be blank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                region:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    country_id:
+                      type: string
+                      format: uuid
+                  required:
+                    - name
+                    - country_id
+  "/api/v1/pokedex/regions/{id}":
+    get:
+      summary: Get region
+      tags:
+        - Regions
+      security:
+        - bearer_auth: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  country:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+        "404":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Region not found
+                  status:
+                    type: integer
+                    example: 404
+    put:
+      summary: Update region
+      tags:
+        - Regions
+      security:
+        - bearer_auth: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  country:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+        "404":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Region not found
+                  status:
+                    type: integer
+                    example: 404
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                region:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    country_id:
+                      type: string
+                      format: uuid
+    delete:
+      summary: Delete region
+      tags:
+        - Regions
+      security:
+        - bearer_auth: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Success
+        "404":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Region not found
+                  status:
+                    type: integer
+                    example: 404
+
+  # ======= Abilities =======
+  "api/v1/pokedex/abilities":
+    get:
+      summary: Get abilities
+      tags:
+        - Abilities
+      security:
+        - bearer_auth: {}
+      parameters: []
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                    name:
+                      type: string
+                    description:
+                      type: string
+    post:
+      summary: Create ability
+      tags:
+        - Abilities
+      security:
+        - bearer_auth: {}
+      parameters: []
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  description:
+                    type: string
+        "422":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unprocessable entity
+                  status:
+                    type: integer
+                    example: 422
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: name
+                        message:
+                          type: string
+                          example: Name can't be blank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ability:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+                  required:
+                    - name
+  "/api/v1/pokedex/abilities/{id}":
+    get:
+      summary: Get ability
+      tags:
+        - Abilities
+      security:
+        - bearer_auth: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  description:
+                    type: string
+        "404":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Ability not found
+                  status:
+                    type: integer
+                    example: 404
+    put:
+      summary: Update ability
+      tags:
+        - Abilities
+      security:
+        - bearer_auth: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  description:
+                    type: string
+        "404":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Ability not found
+                  status:
+                    type: integer
+                    example: 404
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ability:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+    delete:
+      summary: Delete ability
+      tags:
+        - Abilities
+      security:
+        - bearer_auth: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Success
+        "404":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Ability not found
+                  status:
+                    type: integer
+                    example: 404
+
+  # ======= Types =======
+  "/api/v1/pokedex/types":
+    get:
+      summary: Get types
+      tags:
+        - Types
+      security:
+        - bearer_auth: {}
+      parameters: []
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                    name:
+                      type: string
+                    description:
+                      type: string
+    post:
+      summary: Create type
+      tags:
+        - Types
+      security:
+        - bearer_auth: {}
+      parameters: []
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  description:
+                    type: string
+        "422":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unprocessable entity
+                  status:
+                    type: integer
+                    example: 422
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: name
+                        message:
+                          type: string
+                          example: Name can't be blank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+                  required:
+                    - name
+  "/api/v1/pokedex/types/{id}":
+    get:
+      summary: Get type
+      tags:
+        - Types
+      security:
+        - bearer_auth: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  description:
+                    type: string
+        "404":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Type not found
+                  status:
+                    type: integer
+                    example: 404
+    put:
+      summary: Update type
+      tags:
+        - Types
+      security:
+        - bearer_auth: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  description:
+                    type: string
+        "404":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Type not found
+                  status:
+                    type: integer
+                    example: 404
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+    delete:
+      summary: Delete type
+      tags:
+        - Types
+      security:
+        - bearer_auth: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Success
+        "404":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Type not found
+                  status:
+                    type: integer
+                    example: 404
+
+  # ======= Pokemons =======
+  "api/v1/pokedex/pokemons":
+    get:
+
+
 components:
   securitySchemes:
     bearer_auth:

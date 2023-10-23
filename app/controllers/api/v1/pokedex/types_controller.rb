@@ -5,12 +5,12 @@ module API
         include Resourceable
 
         OBJECT_INCLUDES = %i[
-          double_damage_from_type
-          double_damage_to_type
-          half_damage_from_type
-          half_damage_to_type
-          no_damage_from_type
-          no_damage_to_type
+          double_damage_from
+          double_damage_to
+          half_damage_from
+          half_damage_to
+          no_damage_from
+          no_damage_to
         ].freeze
 
         skip_before_action :authenticate_user!
