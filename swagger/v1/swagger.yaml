@@ -1064,7 +1064,405 @@ paths:
   # ======= Pokemons =======
   "api/v1/pokedex/pokemons":
     get:
-
+      summary: Get pokemons
+      tags:
+        - Pokemons
+      security:
+        - bearer_auth: {}
+      parameters:
+        - name: region_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: type_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: ability_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pokemons:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        name:
+                          type: string
+                        pokedex_number:
+                          type: integer
+                        region:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                            name:
+                              type: string
+                        types:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                              name:
+                                type: string
+                        abilities:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                              name:
+                                type: string
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                      next_page:
+                        type: integer
+                      prev_page:
+                        type: integer
+                      total_pages:
+                        type: integer
+                      total_count:
+                        type: integer
+    post:
+      summary: Create pokemon
+      tags:
+        - Pokemons
+      security:
+        - bearer_auth: {}
+      parameters: []
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pokemon:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+                      pokedex_number:
+                        type: integer
+                      region:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                          name:
+                            type: string
+                      types:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                            name:
+                              type: string
+                      abilities:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                            name:
+                              type: string
+        "422":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unprocessable entity
+                  status:
+                    type: integer
+                    example: 422
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: name
+                        message:
+                          type: string
+                          example: Name can't be blank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pokemon:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    pokedex_number:
+                      type: integer
+                    region_id:
+                      type: string
+                      format: uuid
+                    type_ids:
+                      type: array
+                      items:
+                        type: string
+                        format: uuid
+                    ability_ids:
+                      type: array
+                      items:
+                        type: string
+                        format: uuid
+                  required:
+                    - name
+                    - pokedex_number
+                    - region_id
+  "/api/v1/pokedex/pokemons/{id}":
+    get:
+      summary: Get pokemon
+      tags:
+        - Pokemons
+      security:
+        - bearer_auth: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pokemon:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+                      pokedex_number:
+                        type: integer
+                      region:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                          name:
+                            type: string
+                      types:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                            name:
+                              type: string
+                      abilities:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                            name:
+                              type: string
+        "404":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Pokemon not found
+                  status:
+                    type: integer
+                    example: 404
+    put:
+      summary: Update pokemon
+      tags:
+        - Pokemons
+      security:
+        - bearer_auth: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pokemon:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+                      pokedex_number:
+                        type: integer
+                      region:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                          name:
+                            type: string
+                      types:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                            name:
+                              type: string
+                      abilities:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                            name:
+                              type: string
+        "404":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Pokemon not found
+                  status:
+                    type: integer
+                    example: 404
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pokemon:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    pokedex_number:
+                      type: integer
+                    region_id:
+                      type: string
+                      format: uuid
+                    type_ids:
+                      type: array
+                      items:
+                        type: string
+                        format: uuid
+                    ability_ids:
+                      type: array
+                      items:
+                        type: string
+                        format: uuid
+    delete:
+      summary: Delete pokemon
+      tags:
+        - Pokemons
+      security:
+        - bearer_auth: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Success
+        "404":
+          description: Failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Pokemon not found
+                  status:
+                    type: integer
+                    example: 404
 
 components:
   securitySchemes:

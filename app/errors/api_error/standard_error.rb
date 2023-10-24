@@ -2,7 +2,7 @@ module APIError
   class StandardError < ::StandardError
     attr_reader :title, :message, :errors, :status
 
-    def initialize(title: nil, message: nil, errors: [], status:  nil)
+    def initialize(title: nil, message: nil, errors: [], status: nil) # rubocop:todo Lint/MissingSuper
       @title = title
       @status = status
       @errors = errors
@@ -11,10 +11,10 @@ module APIError
 
     def to_hash
       {
-        title: title,
-        status: status,
-        errors: errors,
-        message: message,
+        title:,
+        status:,
+        errors:,
+        message:
       }
     end
 

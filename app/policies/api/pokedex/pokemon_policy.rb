@@ -25,7 +25,7 @@ module API
               :defense,
               'special-attack',
               'special-defense'
-            ],
+            ]
           }
         ]
       end

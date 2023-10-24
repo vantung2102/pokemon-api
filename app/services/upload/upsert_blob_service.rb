@@ -22,9 +22,9 @@ module Upload
         raise APIError::BadRequestError, 'Invalid content type, submit content must be image, video or audio'
       end
 
-      if file.size > 100.megabytes
-        raise APIError::BadRequestError, 'File size is too large, can not be greather than 100MB'
-      end
+      return unless file.size > 100.megabytes
+
+      raise APIError::BadRequestError, 'File size is too large, can not be greather than 100MB'
     end
 
     def upload_and_insert!

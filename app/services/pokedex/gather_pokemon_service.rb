@@ -19,7 +19,7 @@ module Pokedex
     end
 
     def default_orders
-      @normalized_orders ||= {
+      @default_orders ||= {
         order_by: orders[:order_by] || 'id',
         order_direction: orders[:order_direction] || 'desc'
       }

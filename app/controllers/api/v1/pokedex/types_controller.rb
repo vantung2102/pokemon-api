@@ -16,7 +16,6 @@ module API
         skip_before_action :authenticate_user!
         before_action :prepare_collection, only: %i[index]
 
-
         resource_with class: Type,
                       collection_serializer: ::Pokedex::TypeSerializer,
                       object_serializer: ::Pokedex::TypeSerializer,

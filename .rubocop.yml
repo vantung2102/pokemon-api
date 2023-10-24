@@ -1,9 +1,5 @@
 AllCops:
   NewCops: enable
-  SuggestExtensions: false
-  TargetRubyVersion: 2.5
-  DisplayStyleGuide: true
-  DisplayCopNames: true
   Exclude:
     - .gems/**/*
     - bin/**/*
@@ -13,120 +9,176 @@ AllCops:
     - public/**/*
     - tmp/**/*
     - vendor/**/*
-    - lib/tasks/**/*
     - spec/rails_helper.rb
     - spec/spec_helper.rb
     - config.ru
-    - Guardfile
+    - Gemfile.lock
     - Rakefile
     - node_modules/**/*
+  SuggestExtensions: false
+  TargetRubyVersion: 3.2
 
 Bundler/OrderedGems:
   Enabled: false
 
-Layout/ParameterAlignment:
-  EnforcedStyle: with_first_parameter
+Layout/ClassStructure:
+  ExpectedOrder:
+    - module_inclusion
+    - constants
+    - association
+    - public_attribute_macros
+    - public_delegate
+    - macros
+    - public_class_methods
+    - initializer
+    - public_methods
+    - protected_attribute_macros
+    - protected_methods
+    - private_attribute_macros
+    - private_delegate
+    - private_methods
+Layout/EmptyLineAfterMultilineCondition:
+  Enabled: true
 
-Layout/MultilineMethodCallIndentation:
-  EnforcedStyle: aligned
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstArrayElementLineBreak:
+  Enabled: true
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstHashElementLineBreak:
+  Enabled: true
 
 Layout/LineLength:
-  Max: 160
   Exclude:
-    - db/migrate/*.rb
+    - db/migrate/**/*
+    - spec/**/*
+  Max: 160
+
+Layout/MultilineArrayBraceLayout:
+  EnforcedStyle: new_line
+
+Layout/MultilineHashBraceLayout:
+  EnforcedStyle: new_line
+
+Layout/MultilineHashKeyLineBreaks:
+  Enabled: true
+
+Layout/MultilineMethodCallBraceLayout:
+  EnforcedStyle: new_line
+
+Layout/MultilineMethodDefinitionBraceLayout:
+  EnforcedStyle: new_line
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - spec/**/*
+
+Lint/AssignmentInCondition:
+  AllowSafeAssignment: false
 
 Lint/MissingSuper:
+  Enabled: true
   Exclude:
     - app/services/**/*
 
-Lint/UselessAccessModifier:
-  Enabled: false
+Metrics/AbcSize:
+  Max: 45
 
-Style/AndOr:
-  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - config/routes.rb
+    - lib/tasks/**/*
+    - spec/**/*
+  Max: 50
 
-Style/AsciiComments:
-  Enabled: false
+Metrics/BlockNesting:
+  Exclude:
+    - spec/**/*'
+  Max: 4
+
+Metrics/ClassLength:
+  CountAsOne: ["array", "hash", "method_call", "heredoc"]
+  Max: 250
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/MethodLength:
+  CountAsOne: ["array", "hash", "method_call", "heredoc"]
+  Exclude:
+    - db/migrate/*.rb
+    - spec/**/*'
+  Max: 30
+
+Metrics/ModuleLength:
+  CountAsOne: ["array", "hash", "method_call", "heredoc"]
+  Exclude:
+    - spec/**/*'
+  Max: 250
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+Style/AutoResourceCleanup:
+  Enabled: true
 
 Style/ClassAndModuleChildren:
   Enabled: false
 
+Style/CollectionMethods:
+  Enabled: true
+
 Style/Documentation:
-  Enabled: false
-
-Style/FetchEnvVar:
-  Enabled: false
-
-Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/FormatStringToken:
   Enabled: false
 
-Style/GlobalStdStream:
-  Exclude:
-    - config/**/*
-
-Style/GuardClause:
-  Enabled: false
-
-Style/IfUnlessModifier:
-  Enabled: false
-
-Style/MutableConstant:
-  Enabled: true
-
-Style/RedundantFetchBlock:
-  Enabled: false
-
-Style/Semicolon:
-  AllowAsExpressionSeparator: true
-
-Style/SingleLineBlockParams:
+Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/HashEachMethods:
   Enabled: false
 
+Style/HashSyntax:
+  EnforcedShorthandSyntax: either
+
 Style/HashTransformKeys:
   Enabled: false
 
-Style/HashTransformValues:
+Style/IfUnlessModifier:
   Enabled: false
 
-Style/Lambda:
-  Enabled: false
+Style/ImplicitRuntimeError:
+  Enabled: true
+
+Style/IpAddresses:
+  Enabled: true
+
+Style/MultilineMethodSignature:
+  Enabled: true
 
 Style/NumericLiterals:
   MinDigits: 7
 
-Style/WordArray:
-  Enabled: false
+Style/Semicolon:
+  AllowAsExpressionSeparator: true
 
 Style/SymbolArray:
   Enabled: false
 
-Metrics/AbcSize:
-  Max: 30
+Style/SymbolProc:
+  AllowMethodsWithArguments: true
 
-Metrics/BlockNesting:
-  Max: 4
-
-Metrics/BlockLength:
-  Max: 50
-  Exclude:
-    - spec/**/*
-
-Metrics/ClassLength:
-  Max: 250
-
-Metrics/ModuleLength:
-  Max: 250
-
-Metrics/MethodLength:
-  Max: 30
-  Exclude:
-    - db/migrate/*.rb
-
-Metrics/ParameterLists:
+Style/WordArray:
   Enabled: false

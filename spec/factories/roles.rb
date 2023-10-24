@@ -15,7 +15,6 @@
 #  index_roles_on_resource                                (resource_type,resource_id)
 #
 FactoryBot.define do
-  factory :role do
-    
+  factory :role do # rubocop:todo Lint/EmptyBlock
   end
 end

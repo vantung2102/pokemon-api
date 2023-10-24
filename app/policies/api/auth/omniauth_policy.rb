@@ -7,6 +7,7 @@ module API
           :provider,
           :request
         ]
+      end
     end
   end
 end

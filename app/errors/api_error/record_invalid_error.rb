@@ -3,15 +3,15 @@ module APIError
     def initialize(errors = [])
       super(
         status: 422,
-        errors: errors,
+        errors:,
         title: 'Unprocessable Entity'
       )
     end
 
     def serializer_hash
       {
-        title: title,
-        status: status,
+        title:,
+        status:,
         errors: serializable_errors(errors)
       }
     end

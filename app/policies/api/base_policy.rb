@@ -21,7 +21,7 @@ class API::BasePolicy < ApplicationPolicy
 
   private
 
-  def is_admin?
+  def is_admin? # rubocop:todo Naming/PredicateName
     true
   end
 end

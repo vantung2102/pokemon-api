@@ -27,7 +27,8 @@ module Resourceable
                                 :collection_includes,
                                 :object_includes,
                                 :collection_serializer,
-                                :object_serializer)
+                                :object_serializer
+                               )
       assign_resource_class_accessors(options)
     end
 
@@ -59,16 +60,18 @@ module Resourceable
     instance_variable_set(self.class.resource_pagy_variable, pagy)
     instance_variable_set(self.class.resource_collection_variable, collection)
     render_resource_collection(collection, each_serializer: self.class.resource_collection_serializer,
-                                          include: self.class.resource_collection_includes,
-                                          pagy: pagy,
-                                          status: :ok)
+                                           include: self.class.resource_collection_includes,
+                                           pagy:,
+                                           status: :ok
+    )
   end
 
   def show
     object = instance_variable_get(self.class.resource_object_variable)
     render_resource(object, serializer: self.class.resource_object_serializer,
                             include: self.class.resource_object_includes,
-                            status: :ok)
+                            status: :ok
+    )
   end
 
   def create
@@ -78,7 +81,8 @@ module Resourceable
 
     render_resource(object, serializer: self.class.resource_object_serializer,
                             include: self.class.resource_object_includes,
-                            status: :created)
+                            status: :created
+    )
   end
 
   def update
@@ -87,7 +91,8 @@ module Resourceable
 
     render_resource(object, serializer: self.class.resource_object_serializer,
                             include: self.class.resource_object_includes,
-                            status: :ok)
+                            status: :ok
+    )
   end
 
   def destroy

@@ -3,10 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.2.2'
 
-gem 'rails', '~> 7.1.0'
+gem 'rails', '~> 7.1.1'
 gem 'pg', '~> 1.2'
-gem 'puma', '~> 5.0'
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'puma', '>=5.0'
+gem 'tzinfo-data', platforms: %i[windows jruby]
 gem 'bootsnap', require: false
 gem 'bcrypt'
 gem 'rack-cors'
@@ -28,19 +28,19 @@ gem 'sentry-ruby'
 gem 'sentry-rails'
 gem 'rswag'
 
-gem "omniauth"
+gem 'omniauth'
 gem 'omniauth-rails_csrf_protection'
 
 gem 'omniauth-github'
 gem 'omniauth-twitter'
 gem 'omniauth-linkedin'
-gem "omniauth-facebook"
+gem 'omniauth-facebook'
 gem 'omniauth-instagram'
-gem "omniauth-google-oauth2"
+gem 'omniauth-google-oauth2'
 gem 'omniauth-azure-activedirectory-v2'
 
 group :development, :test do
-  gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'debug', platforms: %i[mri windows]
   gem 'pry-rails'
   gem 'dotenv-rails'
   gem 'rspec-rails', '~> 6.0', '>= 6.0.3'

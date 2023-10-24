@@ -20,7 +20,7 @@ module API
 
         def index
           pagy, collection = paginate(filtered_collection)
-          render_resource_collection(collection, pagy: pagy, each_serializer: ::Pokedex::PokemonSerializer)
+          render_resource_collection(collection, pagy:, each_serializer: ::Pokedex::PokemonSerializer)
         end
 
         def show

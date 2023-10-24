@@ -1,6 +1,6 @@
-class AddDeviseToUsers < ActiveRecord::Migration[7.1]
-  def self.up
-    change_table :users do |t|
+class CreateUsers < ActiveRecord::Migration[7.1]
+  def change
+    create_table :users, id: :uuid do |t|
       ## Database authenticatable
       t.string :email,              null: false, default: ''
       t.string :encrypted_password, null: false, default: ''

@@ -4,7 +4,7 @@ module APIError
       super(
         status: 422
         errors: errors,
-        message: message || 'Unprocessable entity',
+        message: message || 'Unprocessable entity'
       )
     end
   end

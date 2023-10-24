@@ -11,13 +11,15 @@ module Pokedex
     module Scopes
       def filter_by_name(name)
         return self if name.blank?
-        where(name: name)
+
+        where(name:)
       end
     end
 
     module Orders
       def order_by(column, direction)
         return self if column.blank? && direction.blank?
+
         order(column => direction)
       end
     end

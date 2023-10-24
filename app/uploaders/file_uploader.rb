@@ -8,6 +8,6 @@ class FileUploader < ApplicationUploader
   end
 
   def size_range
-    0..10.megabytes
+    0..(10.megabytes)
   end
 end
