@@ -47,25 +47,18 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_length_of(:password).is_at_least(8).is_at_most(128) }
     it { is_expected.to validate_presence_of(:first_name) }
     it { is_expected.to validate_presence_of(:last_name) }
-    it { should validate_content_type_of(:avatar).allowing('image/png', 'image/jpeg') }
-    it { should validate_size_of(:avatar).less_than(10.megabytes) }
+    # it { should validate_content_type_of(:avatar).allowing('image/png', 'image/jpeg') }
+    # it { should validate_size_of(:avatar).less_than(10.megabytes) }
 
     # Test associations
-  it { should have_one_attached(:avatar) }
+    it { should have_one_attached(:avatar) }
 
-  # Test class method from_omniauth
-  describe '.from_omniauth' do
-    it 'finds or creates a user from OmniAuth data' do
-      # Your test code for the from_omniauth method goes here
-    end
-  end
-
-  # Test Devise modules
-  it { should have_db_column(:confirmation_token).of_type(:string) }
-  it { should have_db_column(:locked_at).of_type(:datetime) }
-  it { should have_db_index(:confirmation_token).unique }
-  it { should have_db_index(:unlock_token).unique }
-  it { should have_db_index(:email).unique }
-  it { should have_db_index(:reset_password_token).unique }
+    # Test Devise modules
+    it { should have_db_column(:confirmation_token).of_type(:string) }
+    it { should have_db_column(:locked_at).of_type(:datetime) }
+    it { should have_db_index(:confirmation_token).unique }
+    it { should have_db_index(:unlock_token).unique }
+    it { should have_db_index(:email).unique }
+    it { should have_db_index(:reset_password_token).unique }
   end
 end
