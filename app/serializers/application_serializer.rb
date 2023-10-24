@@ -8,4 +8,10 @@ class ApplicationSerializer < Blueprinter::Base
   field :updated_at do |object|
     object.updated_at&.to_i
   end
+
+  def self.url_for(object)
+    return unless object.present?
+
+    Rails.application.routes.url_helpers.url_for(object)
+  end
 end

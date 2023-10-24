@@ -1,4 +1,4 @@
-class Api::BasePolicy < ApplicationPolicy
+class API::BasePolicy < ApplicationPolicy
   def index?
     is_admin?
   end
@@ -21,7 +21,7 @@ class Api::BasePolicy < ApplicationPolicy
 
   private
 
-  def is_admin?
+  def is_admin? # rubocop:todo Naming/PredicateName
     true
   end
 end

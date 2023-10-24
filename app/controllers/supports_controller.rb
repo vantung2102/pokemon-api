@@ -1,5 +1,8 @@
 class SupportsController < ApplicationController
   def home
-    render json: { app: 'pokemon-rails-api', version: '0.0.1' }
+    render json: {
+      version: '0.0.1',
+      app: 'pokemon-rails-api'
+    }
   end
 end

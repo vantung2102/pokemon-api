@@ -1,6 +1,27 @@
+require 'sidekiq/web'
+require 'sidekiq/cron/web'
+
+Sidekiq::Web.use ActionDispatch::Cookies
+Sidekiq::Web.use ActionDispatch::Session::CookieStore, key: '_interslice_session'
+if ENV['SIDEKIQ_WEB_USERNAME'].present? && ENV['SIDEKIQ_WEB_PASSWORD'].present?
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(username), ::Digest::SHA256.hexdigest(ENV['SIDEKIQ_WEB_USERNAME'])) &
+      ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(password), ::Digest::SHA256.hexdigest(ENV['SIDEKIQ_WEB_PASSWORD']))
+  end
+end
+
 Rails.application.routes.draw do
-  mount Rswag::Ui::Engine => '/api-docs'
-  mount Rswag::Api::Engine => '/api-docs'
+  if ENV['API_DOCS'] == 'true'
+    mount Rswag::Ui::Engine => '/api-docs'
+    mount Rswag::Api::Engine => '/api-docs'
+  end
+  mount Sidekiq::Web => '/sidekiq'
+
+  # active_storage override routes for authention required
+  get  '/rails/active_storage/disk/:encoded_key/*filename', to: 'disk#show'
+  put  '/rails/active_storage/disk/:encoded_token', to: 'disk#update'
+  post '/rails/active_storage/direct_uploads', to: 'direct_uploads#create'
+
   root 'supports#home'
 
   namespace :api do
@@ -9,22 +30,31 @@ Rails.application.routes.draw do
                 param: :signed_id,
                 only: %i[create show]
 
-      namespace :users do
-        post :signup, to: 'registrations#create'
-        post :verify, to: 'registrations#verify'
+      namespace :auth do
+        devise_scope :user do
+          post :sign_up, to: 'registrations#create'
+          post :sign_in, to: 'sessions#create'
+          delete :sign_out, to: 'sessions#destroy'
+          resource :confirmation, only: %i[create update]
+          resource :password, only: %i[create update]
+        end
 
-        post :login, to: 'sessions#create'
+        devise_for :users, singular: :user, skip: :all
 
-        get 'token/refresh', to: 'tokens#refresh'
+        resource :profile, only: %i[me] do
+          member do
+            put :general
+            put :password
+            put :email
+          end
+        end
+      end
 
-        get :me, to: 'profiles#me'
-        resources :profiles, only: %i[show]
-        put :profiles, to: 'profiles#update'
-        patch :profiles, to: 'profiles#update'
-        delete :profiles, to: 'profiles#destroy'
-
-        post :forgot_password, to: 'passwords#forgot_password'
-        post :reset_password, to: 'passwords#reset_password'
+      namespace :pokedex do
+        resources :types
+        resources :regions
+        resources :pokemons
+        resources :abilities
       end
     end
   end

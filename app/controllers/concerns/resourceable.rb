@@ -9,7 +9,7 @@ module Resourceable
     assign_resource_class_accessors
   end
 
-  module ClassMethod
+  module ClassMethods
     attr_accessor :resource_class,
                   :resource_pagy_variable,
                   :resource_collection_variable,
@@ -18,7 +18,7 @@ module Resourceable
                   :resource_object_includes,
                   :resource_collection_serializer,
                   :resource_object_serializer
-    
+
     def resource_with(options = {})
       options.symbolize_keys!
       options.assert_valid_keys(:class,
@@ -27,7 +27,8 @@ module Resourceable
                                 :collection_includes,
                                 :object_includes,
                                 :collection_serializer,
-                                :object_serializer)
+                                :object_serializer
+                               )
       assign_resource_class_accessors(options)
     end
 
@@ -39,11 +40,11 @@ module Resourceable
         undef_method(action)
       end
     end
-    
+
     private
 
     def assign_resource_class_accessors(options = {})
-      self.resource_class = options.fetch(:class, (name.split('::').last.sub(/Controller$/, '').singularize.constantize rescue nil))
+      self.resource_class = options.fetch(:class, (name.split('::').last.sub(/Controller$/, '').singularize.constantize rescue nil)) # rubocop:disable Style/RescueModifier
       self.resource_collection_variable = options.fetch(:collection_variable, :@collection).to_sym
       self.resource_object_variable = options.fetch(:object_variable, :@object).to_sym
       self.resource_collection_includes = options.fetch(:collection_includes, [])
@@ -58,18 +59,19 @@ module Resourceable
     pagy, collection = paginate(instance_variable_get(self.class.resource_collection_variable))
     instance_variable_set(self.class.resource_pagy_variable, pagy)
     instance_variable_set(self.class.resource_collection_variable, collection)
-
-    render_resources(collection, each_serializer: self.class.resource_collection_serializer,
-                                 include: self.class.resource_collection_includes,
-                                 pagy: pagy,
-                                 status: :ok)
+    render_resource_collection(collection, each_serializer: self.class.resource_collection_serializer,
+                                           include: self.class.resource_collection_includes,
+                                           pagy:,
+                                           status: :ok
+    )
   end
 
   def show
     object = instance_variable_get(self.class.resource_object_variable)
     render_resource(object, serializer: self.class.resource_object_serializer,
                             include: self.class.resource_object_includes,
-                            status: :ok)
+                            status: :ok
+    )
   end
 
   def create
@@ -79,7 +81,8 @@ module Resourceable
 
     render_resource(object, serializer: self.class.resource_object_serializer,
                             include: self.class.resource_object_includes,
-                            status: :created)
+                            status: :created
+    )
   end
 
   def update
@@ -88,7 +91,8 @@ module Resourceable
 
     render_resource(object, serializer: self.class.resource_object_serializer,
                             include: self.class.resource_object_includes,
-                            status: :ok)
+                            status: :ok
+    )
   end
 
   def destroy

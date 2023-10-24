@@ -4,8 +4,8 @@ Ruby On Rails API simple starter template :goat: :goat: :goat:.
 
 ## General Information
 
-- Ruby version: `ruby 3.1.2`
-- Rails version: `rails 7.0.3`
+- Ruby version: `ruby 3.2.2`
+- Rails version: `rails 7.1.0`
 - Database: `postgresql`
 
 ## Installation

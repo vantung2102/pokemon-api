@@ -2,14 +2,15 @@ require 'simplecov'
 SimpleCov.start do
   add_filter 'config/'
   add_filter 'spec/'
-  add_group 'Models', 'app/models'
-  add_group 'Controllers', 'app/controllers'
   add_group 'Jobs', 'app/jobs'
+  add_group 'Models', 'app/models'
   add_group 'Mailers', 'app/mailers'
-  add_group 'Serializers', 'app/serializers'
+  add_group 'Queries', 'app/queries'
   add_group 'Services', 'app/services'
   add_group 'Policies', 'app/policies'
   add_group 'Decorators', 'app/decorators'
+  add_group 'Controllers', 'app/controllers'
+  add_group 'Serializers', 'app/serializers'
 end
 
 require 'spec_helper'
