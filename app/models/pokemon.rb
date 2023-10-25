@@ -43,7 +43,7 @@ class Pokemon < ApplicationRecord
 
   # validations
   validates :name, presence: true, uniqueness: true
-  validates :pokemon_api_id, presence: true, uniqueness: true
+  validates :pokemon_api_id, presence: true, uniqueness: { case_sensitive: false }
   validates :height, presence: true
   validates :weight, presence: true
   validates :category, presence: true

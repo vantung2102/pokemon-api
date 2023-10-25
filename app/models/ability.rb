@@ -9,6 +9,11 @@
 #  updated_at  :datetime         not null
 #
 class Ability < ApplicationRecord
+  # associations
   has_many :pokemon_abilities, dependent: :destroy
   has_many :pokemons, through: :pokemon_abilities, dependent: :destroy
+
+  # validations
+  validates :name, presence: true, uniqueness: true
+  validates :description, presence: true
 end

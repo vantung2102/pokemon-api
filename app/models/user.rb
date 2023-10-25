@@ -55,13 +55,13 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 8 }, on: :create
   validates :first_name, presence: true
   validates :last_name, presence: true
-  # validates :avatar, content_type: ['image/png', 'image/jpeg'], size: { less_than: 10.megabytes }
+  # validates :avatar, attached: true, content_type: ['image/png', 'image/jpeg'], size: { less_than: 10.megabytes }
 
   # def self.from_omniauth(auth)
   #   user = User.find_by(email: auth.info.email)
   #   return user if user
 
-  #   where(provider: auth.provider, uid: auth.info).first_or_create! do |user| # rubocop:todo Lint/ShadowingOuterLocalVariable
+  #   where(provider: auth.provider, uid: auth.info).first_or_create! do |user|
   #     user.email = auth.info.email
   #     user.password = Devise.friendly_token[0, 20]
   #   end
