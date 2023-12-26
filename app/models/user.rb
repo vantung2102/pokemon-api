@@ -40,10 +40,9 @@ class User < ApplicationRecord
   extend Enumerize
   include Devise::JWT::RevocationStrategies::Allowlist
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable, :recoverable,
-         :validatable, :trackable, :jwt_authenticatable, jwt_revocation_strategy: self
+        :validatable, :trackable, :jwt_authenticatable, jwt_revocation_strategy: self
+
 
   # associations
   has_one_attached :avatar

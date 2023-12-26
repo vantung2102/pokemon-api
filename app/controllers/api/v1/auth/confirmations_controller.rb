@@ -1,7 +1,7 @@
 module API
   module V1
     module Auth
-      class ConfirmationsController < BaseController
+      class ConfirmationsController < Devise::ConfirmationsController
         include JSONAPIRender
         respond_to :json
 
