@@ -28,24 +28,14 @@
 #
 #  fk_rails_...  (region_id => regions.id) ON DELETE => cascade
 #
-class Pokemon < ApplicationRecord
-  enum gender: { female_and_male: 0, female: 1, male: 2, genderless: 3 }
-
-  # associations
-  belongs_to :region
-
-  has_one_attached :image
-
-  has_many :pokemon_types, dependent: :destroy
-  has_many :pokemon_abilities, dependent: :destroy
-  has_many :types, through: :pokemon_types, dependent: :destroy
-  has_many :abilities, through: :pokemon_abilities, dependent: :destroy
-
-  # validations
-  validates :name, presence: true, uniqueness: true
-  validates :pokemon_api_id, presence: true, uniqueness: { case_sensitive: false }
-  validates :height, presence: true
-  validates :weight, presence: true
-  validates :category, presence: true
-  validates :stats, presence: true
+FactoryBot.define do
+  factory :pokemon do
+    name { Faker::Games::Pokemon.name }
+    pokemon_api_id { Faker::Number.number(digits: 10) }
+    height { Faker::Number.number(digits: 2) }
+    weight { Faker::Number.number(digits: 2) }
+    category { Faker::Games::Pokemon.move }
+    stats { { hp: Faker::Number.number(digits: 2) } }
+    association :region
+  end
 end

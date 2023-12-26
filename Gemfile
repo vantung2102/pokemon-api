@@ -51,6 +51,7 @@ end
 
 group :development do
   gem 'rubocop', require: false
+  gem 'ruby-lsp', require: false
   gem 'brakeman', require: false
   gem 'letter_opener'
   gem 'annotate'

@@ -40,10 +40,9 @@ class User < ApplicationRecord
   extend Enumerize
   include Devise::JWT::RevocationStrategies::Allowlist
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable, :recoverable,
-         :validatable, :trackable, :jwt_authenticatable, jwt_revocation_strategy: self
+        :validatable, :trackable, :jwt_authenticatable, jwt_revocation_strategy: self
+
 
   # associations
   has_one_attached :avatar
@@ -55,15 +54,15 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 8 }, on: :create
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :avatar, content_type: ['image/png', 'image/jpeg'], size: { less_than: 10.megabytes }
+  # validates :avatar, attached: true, content_type: ['image/png', 'image/jpeg'], size: { less_than: 10.megabytes }
 
-  def self.from_omniauth(auth)
-    user = User.find_by(email: auth.info.email)
-    return user if user
+  # def self.from_omniauth(auth)
+  #   user = User.find_by(email: auth.info.email)
+  #   return user if user
 
-    where(provider: auth.provider, uid: auth.info).first_or_create! do |user| # rubocop:todo Lint/ShadowingOuterLocalVariable
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
-    end
-  end
+  #   where(provider: auth.provider, uid: auth.info).first_or_create! do |user|
+  #     user.email = auth.info.email
+  #     user.password = Devise.friendly_token[0, 20]
+  #   end
+  # end
 end

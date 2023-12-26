@@ -4,7 +4,7 @@ module APIError
       super(
         status: 400,
         title: 'Bad Request',
-        deatil: "Param '#{param}' is msissing or the value is empty."
+        message: "Param '#{param}' is msissing or the value is empty."
       )
     end
   end

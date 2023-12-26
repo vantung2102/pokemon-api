@@ -8,15 +8,15 @@ module API
         private
 
         def sign_up_params
-          params.require(:user).permit(:email, :password, :password_confirmation)
+          params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation)
         end
 
         def respond_with(resource, _opts = {})
-          reture render_resource_errors(resource.errors) if resource.errors.any?
+          return render_resource_errors(resource.errors) if resource.errors.any?
 
           case action_name
           when 'create', 'update'
-            render_resource(resource, resource.previous_changes[:id].present? ? :created : :ok)
+            render_resource(resource, status: resource.previous_changes[:id].present? ? :created : :ok)
           when 'destroy'
             head :no_content
           end

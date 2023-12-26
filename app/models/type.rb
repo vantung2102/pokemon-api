@@ -26,4 +26,6 @@ class Type < ApplicationRecord
   has_many :no_damage_to, class_name: 'Type', foreign_key: 'no_damage_to', dependent: :destroy
 
   # validations
+  validates :name, presence: true, uniqueness: true
+  validates :description, presence: true
 end

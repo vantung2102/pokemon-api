@@ -37,9 +37,14 @@
 #
 class UserSerializer < ApplicationSerializer
   fields :email,
-         :email_verified_at
+         :first_name,
+         :last_name
 
-  view :auth do
-    fields :auth_token
+  field :is_confirmed do |user|
+    user.confirmed?
+  end
+
+  field :avatar_url do |user|
+    url_for(user.avatar)
   end
 end
